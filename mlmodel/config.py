@@ -1,0 +1,5 @@
+PGHOST = 'mltrainingdb.ci2ii1wmuvpx.us-east-1.rds.amazonaws.com'
+PGDATABASE = 'postgres'
+PGUSER = 'postgres'
+PGPASSWORD = 'ASriZPmwVwjqARBnm9qV'
+PORT='5432'
