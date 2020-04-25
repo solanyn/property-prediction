@@ -49,4 +49,4 @@ print(metrics.mean_squared_error(y_test, preds))
 print(metrics.mean_absolute_error(y_test, preds))
 print(metrics.r2_score(y_test, preds))
 
-
+catboost.save_model(model, "catboost.model")
