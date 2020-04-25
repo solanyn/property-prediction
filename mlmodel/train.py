@@ -14,10 +14,16 @@ conn_string = "host="+creds.PGHOST+" port="+creds.PORT+" dbname="+creds.PGDATABA
 conn = psycopg2.connect(conn_string)
 cur = conn.cursor()
 cur.execute('select * from houses')
+data = pd.DataFrame(cur.fetchall())
+cur.execute("""select column_name from information_schema.columns where table_name = 'houses'""")
+columns = cur.fetchall()
+c = []
+for i in columns:
+    c.append(i[0])
+data.columns = c
 
 # Use select features
 print("Preparing data...")
-data = pd.DataFrame(cur.fetchall())
 data = data.loc[:,['suburb', 'rooms', 'type', 'price', 'postcode', 'bathroom', 'car', 'landsize', 'councilarea', 'regionname']]
 data = data.dropna()
 X = data.drop(columns=["price"])
@@ -38,7 +44,7 @@ grid = {'learning_rate': [0.01, 0.03, 0.06, 0.09, 0.12],
             'random_strength': [2, 4],
             'bagging_temperature': [0, 1],
         }
-grid_search_result = model.randomized_search(grid, X=train_pool, plot=True, search_by_train_test_split=True)
+grid_search_result = model.randomized_search(grid, X=train_pool, search_by_train_test_split=True)
 
 # Evaluate on test set
 preds = model.predict(test_pool)
