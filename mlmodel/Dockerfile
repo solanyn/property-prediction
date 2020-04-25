@@ -1,3 +1,5 @@
+# Yoinked from Python official Docker image
+
 FROM python:3
 
 WORKDIR /usr/src/app
