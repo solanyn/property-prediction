@@ -55,4 +55,5 @@ print(metrics.mean_squared_error(y_test, preds))
 print(metrics.mean_absolute_error(y_test, preds))
 print(metrics.r2_score(y_test, preds))
 
-catboost.save_model(model, "catboost.model")
+# Make sure docker has volume mounted
+model.save_model("model/catboost.model")
