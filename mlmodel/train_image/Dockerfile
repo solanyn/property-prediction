@@ -1,62 +1,29 @@
-# Part of the implementation of this container is based on the Amazon SageMaker Apache MXNet container.
-# https://github.com/aws/sagemaker-mxnet-container
+FROM ubuntu:18.04
 
-FROM ubuntu:16.04
+# Install python and other scikit-learn runtime dependencies
+# Dependency list from http://scikit-learn.org/stable/developers/advanced_installation.html#installing-build-dependencies
+RUN apt-get update && \
+    apt-get -y install build-essential libatlas-dev git wget curl nginx jq libatlas3-base
 
-LABEL maintainer="Amazon AI"
+RUN curl -LO http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
+    bash Miniconda3-latest-Linux-x86_64.sh -bfp /miniconda3 && \
+   rm Miniconda3-latest-Linux-x86_64.sh
 
-# Defining some variables used at build time to install Python3
-ARG PYTHON=python3
-ARG PYTHON_PIP=python3-pip
-ARG PIP=pip3
-ARG PYTHON_VERSION=3.6.6
+ENV PATH=/miniconda3/bin:${PATH}
 
-# Install some handful libraries like curl, wget, git, build-essential, zlib
-RUN apt-get update && apt-get install -y --no-install-recommends software-properties-common && \
-    add-apt-repository ppa:deadsnakes/ppa -y && \
-    apt-get update && apt-get install -y --no-install-recommends \
-        build-essential \
-        ca-certificates \
-        curl \
-        wget \
-        git \
-        libopencv-dev \
-        openssh-client \
-        openssh-server \
-        vim \
-        zlib1g-dev && \
-    rm -rf /var/lib/apt/lists/*
+RUN conda update -y conda && \
+    conda install -c conda-forge pyarrow=0.14.1 && \
+    conda install -c mlio -c conda-forge mlio-py=0.1 && \
+    conda install -c anaconda scipy
 
-# Installing Python3
-RUN wget https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tgz && \
-        tar -xvf Python-$PYTHON_VERSION.tgz && cd Python-$PYTHON_VERSION && \
-        ./configure && make && make install && \
-        apt-get update && apt-get install -y --no-install-recommends libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev && \
-        make && make install && rm -rf ../Python-$PYTHON_VERSION* && \
-        ln -s /usr/local/bin/pip3 /usr/bin/pip
+# Python won’t try to write .pyc or .pyo files on the import of source modules
+# Force stdin, stdout and stderr to be totally unbuffered. Good for logging
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PYTHONIOENCODING=UTF-8 LANG=C.UTF-8 LC_ALL=C.UTF-8
 
-# Upgrading pip and creating symbolic link for python3
-RUN ${PIP} --no-cache-dir install --upgrade pip
-RUN ln -s $(which ${PYTHON}) /usr/local/bin/python
+RUN python -m pip install --no-cache -I scikit-learn catboost psycopg2-binary 
 
-WORKDIR /
+RUN pip3 install sagemaker-training
 
-# Installing numpy, pandas, scikit-learn, scipy
-RUN ${PIP} install --no-cache --upgrade \
-        numpy==1.14.5 \
-        pandas==0.24.1 \
-        scikit-learn==0.20.3 \
-        requests==2.21.0 \
-        scipy==1.2.1
+COPY train.py /opt/ml/code/train.py
 
-# Setting some environment variables.
-ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1 \
-    LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/usr/local/lib" \
-    PYTHONIOENCODING=UTF-8 \
-    LANG=C.UTF-8 \
-    LC_ALL=C.UTF-8
-
-COPY *.py /
-
-ENTRYPOINT ["python", "main.py"]
+ENV SAGEMAKER_PROGRAM train.py
