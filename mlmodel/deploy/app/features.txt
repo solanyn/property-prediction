@@ -1,1 +1,0 @@
-suburb,rooms,type,postcode,bathroom,car,landsize,councilarea,regionname

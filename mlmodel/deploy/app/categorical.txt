@@ -1,1 +1,0 @@
-suburb,type,postcode,councilarea,regionname

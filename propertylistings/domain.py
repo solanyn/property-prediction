@@ -2,9 +2,7 @@
 # Reference on how to auth and access with Python
 
 import json
-import requests 
-from oauthlib.oauth2 import BackendApplicationClient
-from requests_oauthlib import OAuth2Session
+import requests
 from requests.auth import HTTPBasicAuth
 
 
@@ -61,7 +59,7 @@ def get_listings():
             }
         ],
     }
-    auth = { "Authorization": "Bearer " + get_token()}
+    auth = {"Authorization": "Bearer " + get_token()}
     r = requests.post("https://api.domain.com.au/v1/listings/residential/_search", json=payload, headers=auth)
     print(r.json())
     with open("data/listings.json", "w") as f:
