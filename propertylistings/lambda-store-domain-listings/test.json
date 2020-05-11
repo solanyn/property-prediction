@@ -1,0 +1,32 @@
+{
+    "id": 2016252580,
+    "propertyDetails": {
+        "state": "VIC",
+        "features": [
+            "AirConditioning",
+            "BuiltInWardrobes",
+            "Gas",
+            "CityViews",
+            "Heating",
+            "Dishwasher"
+        ],
+        "propertyType": "ApartmentUnitFlat",
+        "allPropertyTypes": [
+            "ApartmentUnitFlat"
+        ],
+        "bathrooms": "1.0",
+        "bedrooms": "2.0",
+        "carspaces": 1,
+        "unitNumber": "302",
+        "streetNumber": "688-690",
+        "street": "High  Street",
+        "area": "North",
+        "region": "Melbourne Region",
+        "suburb": "THORNBURY",
+        "postcode": "3071",
+        "displayableAddress": "302/688-690 High  Street, Thornbury",
+        "latitude": "-37.75834",
+        "longitude": "145.00087",
+        "buildingArea": "88.0"
+    }
+}

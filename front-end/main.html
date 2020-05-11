@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 450px}
+
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+
+
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;}
+    }
+
+		.map-responsive{
+	    overflow:hidden;
+	    padding-bottom:56.25%;
+	    position:relative;
+	    height:0;
+		}
+
+		.map-responsive iframe{
+	    left:0;
+	    top:0;
+	    height:100%;
+	    width:100%;
+	    position:absolute;
+		}
+
+  </style>
+</head>
+<body>
+
+	<nav class="navbar navbar-inverse">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <a class="navbar-brand" href="#">WebSiteName</a>
+	    </div>
+
+
+	    <form class="navbar-form navbar-left">
+	      <div class="form-group">
+	        <input type="text" class="form-control" placeholder="Search for Suburbs">
+				</div>
+
+					<button type="submit" class="btn btn-primary">Search</button>
+					<button type="submit" class="btn btn-primary">Go to Profile</button>
+			</form>
+
+	</nav>
+
+	<nav class="navbar">
+		<div class="container-fluid">
+
+			<form class="navbar-form navbar-left">
+				<div>
+
+					<button type="submit" class="btn btn-primary">Calculate Price</button>
+
+					  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Property Type
+					  <span class="caret"></span></button>
+
+					  <ul class="dropdown-menu dropdown-menu-right">
+					    <li><a href="#">House</a></li>
+					    <li><a href="#">Apartment</a></li>
+					    <li><a href="#">Townhouse</a></li>
+					  </ul>
+
+						<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Number of Beds
+					  <span class="caret"></span></button>
+
+					  <ul class="dropdown-menu">
+					    <li><a href="#">1</a></li>
+					    <li><a href="#">2</a></li>
+					    <li><a href="#">3</a></li>
+							<li><a href="#">4+</a></li>
+					  </ul>
+
+						<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Car Park
+						<span class="caret"></span></button>
+						
+						<ul class="dropdown-menu">
+							<li><a href="#">1</a></li>
+							<li><a href="#">2</a></li>
+							<li><a href="#">3</a></li>
+							<li><a href="#">4+</a></li>
+
+						</ul>
+
+				</div>
+
+			</form>
+	</nav>
+    <div class="col-sm-2 sidenav" style="overflow-x:auto;">
+      	<p><img class="img-responsive" src="house1.jpg" alt="Chania" width="460" height="345"></p>
+      	<p><img class="img-responsive" src="house1.jpg" alt="Chania" width="460" height="345"></p>
+      	<p><img class="img-responsive" src="house1.jpg" alt="Chania" width="460" height="345"></p>
+				<p><img class="img-responsive" src="house1.jpg" alt="Chania" width="460" height="345"></p>
+				<p><img class="img-responsive" src="house1.jpg" alt="Chania" width="460" height="345"></p>
+
+    </div>
+
+
+
+    <div class="col-sm-responsive sidenav">
+			<div class="map-responsive">
+				<iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d100916.63043248163!2d144.82462797237372!3d-37.774928376979396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sgoogle%20maps!5e0!3m2!1sen!2sau!4v1588849665012!5m2!1sen!2sau" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+			</div>
+		</div>
+
+
+
+</body>
+</html>
