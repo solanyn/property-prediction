@@ -26,14 +26,14 @@ data.columns = c
 
 # Use select features
 print("Preparing data...")
-data = data.loc[:,['suburb', 'rooms', 'type', 'price', 'postcode', 'bathroom', 'car', 'landsize', 'councilarea', 'regionname']]
+data = data.loc[:,['suburb', 'rooms', 'type', 'price', 'postcode', 'bathroom', 'car']]
 data = data.dropna()
 X = data.drop(columns=["price"])
 y = data["price"]
 
 # Split data for training and evaluation
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
-categorical = ['suburb', 'type', 'postcode', 'councilarea', 'regionname']
+categorical = ['suburb', 'type', 'postcode']
 train_pool = Pool(X_train, y_train, cat_features=categorical)
 test_pool = Pool(X_test, cat_features=categorical)
 
@@ -48,17 +48,6 @@ grid = {'learning_rate': [0.01, 0.03, 0.06, 0.09, 0.12],
         }
 grid_search_result = model.randomized_search(grid, X=train_pool, search_by_train_test_split=True, verbose=False)
 
-# Save features to predict on to file
-with open("deploy/app/features.txt", "w") as f:
-    features = ",".join(X_train.columns)
-    f.write(features)
-    f.close()
-
-with open("deploy/app/categorical.txt", "w") as f:
-    cat = ",".join(categorical)
-    f.write(cat)
-    f.close()
-
 # Evaluate on test set
 preds = model.predict(test_pool)
 
@@ -69,7 +58,7 @@ print(metrics.mean_absolute_error(y_test, preds))
 print(metrics.r2_score(y_test, preds))
 
 # Save to file and S3 storage
-pickle.dump(model, open("/app/catboost.pkl", "rb"))
+pickle.dump(model, open("catboost.pkl", "wb"))
 s3 = boto3.client("s3")
-with open("/app/catboost.pkl", "wb") as f:
+with open("catboost.pkl", "rb") as f:
     s3.upload_fileobj(f, "house-prediction-project", "mlmodel/catboost.pkl")
