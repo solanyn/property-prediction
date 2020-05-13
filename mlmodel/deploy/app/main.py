@@ -7,21 +7,18 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-#s3 = boto3.resource('s3')
-#s3.Bucket('house-prediction-project').download_file('mlmodel/catboost.pkl', 'catboost.pkl')
+# s3 = boto3.resource('s3')
+# s3.Bucket('house-prediction-project').download_file('mlmodel/catboost.pkl', 'catboost.pkl')
 
 model = pickle.load(open("catboost.pkl", "rb"))
 
 class Property(BaseModel):
     suburb: str
-    rooms: int
+    rooms: float 
     type: str
     postcode: str
-    bathroom: int
-    car: int
-    landsize: float
-    councilarea: str
-    regionname: str
+    bathroom: float
+    car: float 
 
 
 @app.get("/")
@@ -34,6 +31,8 @@ def predict(property: Property):
 
     result = model.predict(list(data.values()))
     if result:
-        return {200: {"price": result}}
+        return {"statusCode": 200,
+                "body": {"price": result}}
     else:
-        return {404: {"message": "data invalid"}}
+        return {"status": 404,
+                "body": {"message": "data invalid"}}
