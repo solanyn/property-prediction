@@ -25,13 +25,12 @@ async function getData() {
 function displayData() {
 	data.forEach(item => {
         let valid = true;
-        keys.forEach(field => {
+        Object.keys(item.propertyDetails).forEach(field => {
             if(item.propertyDetails[field] === undefined) {
                 valid = false;
                 return;
             }
         });
-
         if (!valid)
             return;
 
@@ -123,7 +122,6 @@ function onClick(e) {
 }
 
 // Stuff starts here
-let keys = ["suburb", "propertyType", "postcode", "bedrooms", "bathrooms", "carspaces"]
 let mymap = L.map('mapid').setView([-37.8136, 144.9631], 12);
 let layer;
 onInit();
