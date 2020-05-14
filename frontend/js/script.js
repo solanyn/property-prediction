@@ -9,8 +9,8 @@ async function onInit() {
 		zoomOffset: -1
 	}).addTo(mymap);
 
-    // Alert with instructions
-    $("#warn").hide();
+	// Alert with instructions
+	$("#warn").hide();
 }
 
 async function getData() {
@@ -24,16 +24,16 @@ async function getData() {
 
 function displayData() {
 	data.forEach(item => {
-        let valid = true;
-        keys.forEach(field => {
-            if(item.propertyDetails[field] === undefined) {
-                valid = false;
-                return;
-            }
-        });
+		let valid = true;
+		keys.forEach(field => {
+			if (item.propertyDetails[field] === undefined) {
+				valid = false;
+				return;
+			}
+		});
 
-        if (!valid)
-            return;
+		if (!valid)
+			return;
 
 		var marker = L.marker([item.propertyDetails.latitude, item.propertyDetails.longitude])
 			.addTo(mymap)
@@ -41,18 +41,15 @@ function displayData() {
 		marker.data = item.propertyDetails;
 
 		htmlString = "";
-        htmlString = htmlString.concat("<table class=\"table table-sm\">");
-		htmlString = htmlString.concat("<thead class=\"thead-dark\"><tr><th colspan=\"2\">", marker.data.displayableAddress, "</th></tr></thead>");
+		htmlString = htmlString.concat("<table class=\"table table-sm\">");
+		htmlString = htmlString.concat("<thead class=\"thead-dark\"><tr><th>Address</th><th>", marker.data.displayableAddress, "</th></tr></thead>");
 		htmlString = htmlString.concat("<tbody><tr><td>Suburb</td><td>", marker.data.suburb, "</td></tr>");
 		htmlString = htmlString.concat("<tr><td>Type</td><td>", marker.data.allPropertyTypes[0], "</td></tr>");
 		htmlString = htmlString.concat("<tr><td>Postcode</td><td>", marker.data.postcode, "</td></tr>");
 		htmlString = htmlString.concat("<tr><td>Bedrooms</td><td>", marker.data.bedrooms, "</td></tr>");
 		htmlString = htmlString.concat("<tr><td>Bathrooms</td><td>", marker.data.bathrooms, "</td></tr>");
-        if (marker.data.carspaces == undefined) {
-            marker.data.carspaces = 0;
-        }
-        htmlString = htmlString.concat("<tr><td>Carspaces</td><td>", marker.data.carspaces, "</td></tr>");
-        htmlString = htmlString.concat("</tbody></table>");
+		htmlString = htmlString.concat("<tr><td>Carspaces</td><td>", marker.data.carspaces, "</td></tr>");
+		htmlString = htmlString.concat("</tbody></table>");
 		marker.bindPopup(htmlString);
 	});
 }
@@ -79,27 +76,27 @@ async function predictPrice() {
 		};
 
 		let response = await postPredictData(postData);
-        let price = response.body.price;
-        selected.data.price = price;
+		let price = response.body.price;
+		selected.data.price = price;
 
 		let htmlString = "";
-        htmlString = htmlString.concat("<table class=\"table table-sm\">");
-		htmlString = htmlString.concat("<thead class=\"thead-dark\"><tr><th colspan=\"2\">", selected.data.displayableAddress, "</th></tr></thead>");
+		htmlString = htmlString.concat("<table class=\"table table-sm\">");
+		htmlString = htmlString.concat("<thead class=\"thead-dark\"><tr><th>Address</th><th>", selected.data.displayableAddress, "</th></tr></thead>");
 		htmlString = htmlString.concat("<tbody><tr><td>Suburb</td><td>", selected.data.suburb, "</td></tr>");
 		htmlString = htmlString.concat("<tr><td>Type</td><td>", selected.data.allPropertyTypes[0], "</td></tr>");
 		htmlString = htmlString.concat("<tr><td>Postcode</td><td>", selected.data.postcode, "</td></tr>");
 		htmlString = htmlString.concat("<tr><td>Bedrooms</td><td>", selected.data.bedrooms, "</td></tr>");
 		htmlString = htmlString.concat("<tr><td>Bathrooms</td><td>", selected.data.bathrooms, "</td></tr>");
-        htmlString = htmlString.concat("<tr><td>Carspaces</td><td>", selected.data.carspaces, "</td></tr>");
-        htmlString = htmlString.concat("<tr class=\"table-primary\"><td>Predicted Price</td><td><b>$", Math.round(price), "</b></td></tr>");
-        htmlString = htmlString.concat("</tbody></table>");
-        selected.bindPopup(htmlString);
-	} 
-    
-    if (selected == null || selected == undefined) {
-        $("#welcome").alert("close");
-        $("#warn").show();
-	} 
+		htmlString = htmlString.concat("<tr><td>Carspaces</td><td>", selected.data.carspaces, "</td></tr>");
+		htmlString = htmlString.concat("<tr class=\"table-success\"><th>Predicted Price</th><th>$", Math.round(price), "</th></tr>");
+		htmlString = htmlString.concat("</tbody></table>");
+		selected.bindPopup(htmlString);
+	}
+
+	if (selected == null || selected == undefined) {
+		$("#welcome").alert("close");
+		$("#warn").show();
+	}
 }
 
 
@@ -108,18 +105,18 @@ async function postPredictData(postData) {
 		method: "POST",
 		body: JSON.stringify(postData)
 	});
-    let resdata = await response.json();
-    return resdata;
+	let resdata = await response.json();
+	return resdata;
 }
 
 
 function onClick(e) {
 	e.target.getPopup().on("remove", () => {
 		selected = null;
-        $("#warn").hide();
+		$("#warn").hide();
 	});
 	selected = e.target;
-    $("#warn").hide();
+	$("#warn").hide();
 }
 
 // Stuff starts here

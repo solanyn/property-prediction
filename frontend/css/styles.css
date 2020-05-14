@@ -6,3 +6,6 @@ html, body {
     padding-bottom: 0 
 }
 
+.leaflet-popup-content-wrapper {
+  font-size: 14px;
+}
