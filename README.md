@@ -1,5 +1,7 @@
 # Property Price Predictions in Melbourne
 
+![](images/app.gif)
+
 A full-stack AWS based web application that predicts prices of property advertisements. The web page is built with Leaflet.js using tilesets from Mapbox, Bootstrap styling and jQuery for web requests. The application uses Lambda functions to interface with DynamoDB and using API Gateway as an endpoint. A Docker image is used to deploy an API to serve machine learning predictions using FastAPI and Uvicorn running on an EC2 instance. 
 
 Check each subdirectories for more detailed implementation details and resources.
