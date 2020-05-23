@@ -13,6 +13,9 @@ To deploy the front-end, follow the steps below:
 
 ## References
 [1]a. Mark Otto, "Introduction", getbootstrap.com, 2020. [Online]. Available: https://getbootstrap.com/docs/4.5/getting-started/introduction/. [Accessed: 07- May- 2020].
+
 [2]"Documentation - Leaflet - a JavaScript library for interactive maps", leafletjs.com, 2020. [Online]. Available: https://leafletjs.com/reference-1.6.0.html. [Accessed: 23- May- 2020].
+
 [3]"Documentation", Mapbox, 2020. [Online]. Available: https://docs.mapbox.com/. [Accessed: 07- May- 2020].
+
 [4]"jQuery API Documentation", api.jquery.com, 2020. [Online]. Available: https://api.jquery.com/. [Accessed: 07- May- 2020].

@@ -10,5 +10,7 @@ This directory contains a few components:
 
 ## References
 [1]"Boto3 documentation — Boto3 Docs 1.13.16 documentation", boto3.amazonaws.com, 2020. [Online]. Available: https://boto3.amazonaws.com/v1/documentation/api/latest/index.html. [Accessed: 07- May- 2020].
+
 [2]"CatBoost Documentation", catboost.ai, 2020. [Online]. Available: https://catboost.ai/docs/concepts/about.html. [Accessed: 07- May- 2020].
+
 [3]"FastAPI", fastapi.tiangolo.com, 2020. [Online]. Available: https://fastapi.tiangolo.com/. [Accessed: 07- May- 2020].
