@@ -1,6 +1,6 @@
 catboost==0.23
 cycler==0.10.0
-fastapi==0.54.1
+fastapi==0.65.2
 graphviz==0.14
 kiwisolver==1.2.0
 matplotlib==3.2.1
