@@ -4,7 +4,7 @@ fastapi==0.65.2
 graphviz==0.14
 kiwisolver==1.2.0
 matplotlib==3.2.1
-numpy==1.18.3
+numpy==1.22.0
 pandas==1.0.3
 plotly==4.6.0
 pydantic==1.6.2
